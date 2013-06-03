@@ -1,74 +1,72 @@
 <?php
-    /**
-     This code is for connecting to the MySQL database 
-     for inserting users information to the database.
-	 UtibeAbasi, Bishwo 
-	**/
-	
-    //declare variables
-    $hostName = 'mysql:host = 127.0.0.1; dbname = _a100, charset=utf8';
-    $databaseName = '_a100';
-    $userName = 'jrmh05';
-    $password = 'boobie05';
 
-    //connect to database
-    try{
-    $DatabaseHandle = new PDO($hostName,$userName,$password);
-    //set error mode (this will allow 
-    $DatabaseHandle->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-    echo "There's been an error!, We're unable to connect to the database";
-    }
+ $host = "localhost";
+ $user = "jrmh05_a100";
+ $db   = "jrmh05_a100";
+ $pass = "database";
 
-    //capture the passed data
-    $indName = $POST["Name"];
-    $indLocation = $POST["Location"];
-    $indEmail = $POST["Email"];
-    $contactPhone = $POST["Phone"];
-    $indLinkedIn= $POST["LinkedIn"];
-    $indFacebook= $POST["Facebook"];
-    $indTwitter= $POST["Twitter"];
-    $indGithub= $POST["Github"];
-    $indPWebsite= $POST["PersonalWebsite"];
-    $upload= $POST["upload"];
-    $indBio= $POST["Bio"];
-    $indFunFacts= $POST["Fun Facts"];
-    $indSkills= $POST["Skills"];
-    $indExperience= $POST["Experience"];
-    $indOther= $POST["Other"];
-    $indStatus= $POST["Status"];
-    
-	//Prepare a statement holder.
-	$statementHandle = $DatabaseHandle->prepare('SELECT Name, email,phone, linkedin, facebook, twitter, github,website, upload, bio, funfacts,
-        skills, experience, othe, status
-	    FROM community		
-        WHERE indEmail = :email AND indName = :name  AND indLocation =: location AND contactPhone=:phone AND indLinkedin=:linkedin 
-            AND indFacebook=:facebook AND indTwitter=:twitter AND indGithub=:github AND indPwebsite=:website AND upload=:upload AND 
-            indBio=:bio AND indFunFacts=:funfacts AND indSkills=: skills AND indExperience=:experience AND 
-            indOther=: other AND indStatus=:status');
-		
-	//Bind Parameters
-    $statementHandle -> bindParam(':Name',$indName,PDO::PARAM_STR, 50);
-    $statementHandle -> bindParam(':location',$indLocation, PDO::PARAM_STR, 2);
-    $statementHandle -> bindParam(':email',$indEmail,PDO::PARAM_STR, 50);
-    $statementHandle -> bindParam(':phone',$contactPhone,PDO::PARAM_INT);
-    $statementHandle -> bindParam(':linkedin',$indLinkedIn,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':facebook',$indFacebook,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':twitter',$indTwitter,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':github',$indGithub,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':website',$indPWebsite,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':upload',$upload,PDO::PARAM_STR, 12);
-    $statementHandle -> bindParam(':bio',$indBio,PDO::PARAM_STR, 300);
-    $statementHandle -> bindParam(':funfacts',$indFunFacts,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':skills',$indSkills,PDO::PARAM_STR, 250);
-    $statementHandle -> bindParam(':experience',$indExperience,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':other',$indOther,PDO::PARAM_STR, 200);
-    $statementHandle -> bindParam(':status',$indStatus,PDO::PARAM_STR, 150);
-        
-    //Insert in database
-    $statementHandle -> execute();
-   
-    //close connection
-    $DatabaseHandle = null;
+ $odb = new PDO("mysql:host=" . $host . ";dbname=" . $db,$user,$pass);
+ 
+ $odb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ 
+ if(isset($_POST['ContactName'])){
+ 
+ 	$individualName = $_POST['Name'];
+ 	//$individualLastName = $_POST['Last Name'];
+ 	//$individualUsername = $_POST['User Name'];
+ 	//$individualPassword = $_POST['Password'];
+ 	$individualLocation = $_POST['Location'];
+ 	$individualEmail = $_POST['Email'];
+ 	$individualPhone = $_POST['Phone'];
+ 	$individualLinkedIn = $_POST['LinkedIn'];
+ 	$individualFacebook = $_POST['Facebook'];
+ 	$individualTwitter = $_POST['Twitter'];
+ 	$individualGithub = $_POST['Github'];
+ 	$individualWebsite = $_POST['PersonalWebsite'];
+ 	$individualBio = $_POST['Bio'];
+ 	$individualFunFacts = $_POST['Fun Facts'];
+ 	$individualSkills = $_POST['Skills'];
+ 	$individualExperience = $_POST['Experience'];
+ 	$individualOther = $_POST['Other'];
+ 	$individualStatus = $_POST['Status'];
+ 	
+
+ 	/**
+ 	 * Please note that the variables that have been commented out
+ 	 * do not have corresponding aliases. 
+ 	 */
+ 	 
+ 	$q = "INSERT INTO Individual_Signup
+ 	(dIndividualName,dIndividualLocation,dIndividualEmail,dIndividualPhone,dIndividualLinkedIn,dIndividualFacebook,dIndividualTwitter,dIndividualGithub,
+ 	individualWebsite,dIndividualBio,dIndividualFunFacts,dIndividualSkills,dIndividualExperience,dIndividualOther,dIndividualStatus)
+ 	VALUES
+ 	(:aIndividualName,:aIndividualLocation,:aIndividualEmail,:aIndividualPhone,:aIndividualFacebook,:aIndividualTwitter,:aIndividualGithub,:aIndividualWebsite,
+ 	:aIndividualBio,:individualFunFacts,:individualSkills,:aIndividualExperience,:aIndividualOther,:aIndividualStatus);";
+ 	
+ 	$query = $odb->prepare($q);
+ 	
+ 	$results = $query->execute(array(
+ 		":aIndividualName" => $aIndividualName,
+ 		":individualLocation" => $individualLocation,
+ 		":aIndividualEmail" => $individualEmail,
+ 		":aIndividualPhone" => $individualPhone,
+ 		":aIndividualLinkedIn" => $individualLinkedIn,
+ 		":aIndividualFacebook"=> $individualFacebook,
+ 		":aIndividualTwitter" => $individualTwitter,
+ 		":aIndividualGithub" => $individualGithub,
+ 		":aIndividualWebsite" => $individualWebsite
+ 		
+ 		":aIndividualBio" => $individualBio,
+ 		":aIndividualFunFacts" => $individualFunFacts,
+ 		":aIndividualSkills" => $individualSkills,
+ 		":aIndividualExperience" => $individualExperience,
+ 		":aIndividualOther" => $individualOther,
+ 		":aIndividualStatus"=> $individualStatus
+ 		)); 
+ }
+
 ?>
+<html>
+        <head></head>
+        <body><h1>Thank You for your submission!</h1><br>Your information has been submitted successfully.<br>To view your profile, please click <a href=individualprofile.php>here</a><br>Otherwise, click <a href="index.html">home</a> to return to the main page.</body>
+</html>
