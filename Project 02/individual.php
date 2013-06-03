@@ -54,7 +54,7 @@
  		":aIndividualFacebook"=> $individualFacebook,
  		":aIndividualTwitter" => $individualTwitter,
  		":aIndividualGithub" => $individualGithub,
- 		":aIndividualWebsite" => $individualWebsite
+ 		":aIndividualWebsite" => $individualWebsite,
  		
  		":aIndividualBio" => $individualBio,
  		":aIndividualFunFacts" => $individualFunFacts,
