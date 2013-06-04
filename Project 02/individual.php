@@ -8,13 +8,11 @@
  $odb = new PDO("mysql:host=" . $host . ";dbname=" . $db,$user,$pass);
  
  $odb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ echo "test";
  
- if(isset($_POST['ContactName'])){
+ if(isset($_POST['FirstName'])){
  
- 	$individualName = $_POST['Name'];
- 	//$individualLastName = $_POST['Last Name'];
- 	//$individualUsername = $_POST['User Name'];
- 	//$individualPassword = $_POST['Password'];
+ 	$individualName = $_POST['FirstName'];
  	$individualLocation = $_POST['Location'];
  	$individualEmail = $_POST['Email'];
  	$individualPhone = $_POST['Phone'];
@@ -24,30 +22,27 @@
  	$individualGithub = $_POST['Github'];
  	$individualWebsite = $_POST['PersonalWebsite'];
  	$individualBio = $_POST['Bio'];
- 	$individualFunFacts = $_POST['Fun Facts'];
+ 	$individualFunFacts = $_POST['FunFacts'];
  	$individualSkills = $_POST['Skills'];
  	$individualExperience = $_POST['Experience'];
  	$individualOther = $_POST['Other'];
  	$individualStatus = $_POST['Status'];
  	
-
- 	/**
- 	 * Please note that the variables that have been commented out
- 	 * do not have corresponding aliases. 
- 	 */
- 	 
+ 	echo "2nd test";
+ 	
  	$q = "INSERT INTO Individual_Signup
- 	(dIndividualName,dIndividualLocation,dIndividualEmail,dIndividualPhone,dIndividualLinkedIn,dIndividualFacebook,dIndividualTwitter,dIndividualGithub,
- 	individualWebsite,dIndividualBio,dIndividualFunFacts,dIndividualSkills,dIndividualExperience,dIndividualOther,dIndividualStatus)
+(dIndividualName,dIndividualLocation,dIndividualEmail,dIndividualPhone,dIndividualLinkedIn,dIndividualFacebook,dIndividualTwitter,dIndividualGithub, dIndividualWebsite,dIndividualBio,dIndividualFunFacts,dIndividualSkills,dIndividualExperience,dIndividualOther,dIndividualStatus)
  	VALUES
- 	(:aIndividualName,:aIndividualLocation,:aIndividualEmail,:aIndividualPhone,:aIndividualFacebook,:aIndividualTwitter,:aIndividualGithub,:aIndividualWebsite,
- 	:aIndividualBio,:individualFunFacts,:individualSkills,:aIndividualExperience,:aIndividualOther,:aIndividualStatus);";
+ 	(:aIndividualName,:aIndividualLocation,:aIndividualEmail,:aIndividualPhone,:aIndividualLinkedIn,:aIndividualFacebook,:aIndividualTwitter,:aIndividualGithub,:aIndividualWebsite,
+ 	:aIndividualBio,:aIndividualFunFacts,:aIndividualSkills,:aIndividualExperience,:aIndividualOther,:aIndividualStatus);";
  	
  	$query = $odb->prepare($q);
- 	
+	
+ 	echo "final test";
+	
  	$results = $query->execute(array(
- 		":aIndividualName" => $aIndividualName,
- 		":individualLocation" => $individualLocation,
+ 		":aIndividualName" => $individualName,
+ 		":aIndividualLocation" => $individualLocation,
  		":aIndividualEmail" => $individualEmail,
  		":aIndividualPhone" => $individualPhone,
  		":aIndividualLinkedIn" => $individualLinkedIn,
@@ -55,14 +50,15 @@
  		":aIndividualTwitter" => $individualTwitter,
  		":aIndividualGithub" => $individualGithub,
  		":aIndividualWebsite" => $individualWebsite,
- 		
  		":aIndividualBio" => $individualBio,
  		":aIndividualFunFacts" => $individualFunFacts,
  		":aIndividualSkills" => $individualSkills,
  		":aIndividualExperience" => $individualExperience,
  		":aIndividualOther" => $individualOther,
  		":aIndividualStatus"=> $individualStatus
- 		)); 
+	)); 
+ 		
+ 		
  }
 
 ?>
